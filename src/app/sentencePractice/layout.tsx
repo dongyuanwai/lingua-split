@@ -1,11 +1,11 @@
 import '../globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Header from '@/components/Header'
+import Header from './components/Header'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'earthworm',
+  title: 'lingua-split',
   description: 'Learning English through the method of constructing sentences with conjunctions',
 }
 
@@ -24,7 +24,8 @@ export default function RootLayout({
           <div className='mb-18 mt-20'>
             {children}
           </div>
-          <div className='fixed bottom-10 mt-12 pt-20 ml-24 pl-96'>
+          <div className='flex items-center justify-center py-10'>
+            ddd
           </div>
         </div>
       </body>

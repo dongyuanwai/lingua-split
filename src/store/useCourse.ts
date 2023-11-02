@@ -14,6 +14,7 @@ interface CourseData {
 interface State {
   statementIndex: number;
   currentCourse?: CourseData;
+  currentMode: "question" | "answer";
   toNextStatement: () => void;
   fetchCourse: () => void;
   getCurrentStatement: () => Statement | undefined;
@@ -23,6 +24,7 @@ interface State {
 export const useCourse = create<State>((set, get) => ({
   statementIndex: 0,
   currentCourse: undefined,
+  currentMode: "question",
   async fetchCourse() {
     const response = await fetch("/api/main");
     const data = await response.json();

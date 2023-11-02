@@ -1,14 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Question from "@/components/Question";
-import Answer from "@/components/Answer";
+import Question from "./components/Question";
+import Answer from "./components/Answer";
 import { useCourse, useFailedCount } from "@/store";
 
+enum Mode {
+  Question = "question",
+  Answer = "answer",
+}
 export default function Home() {
-  const [currentMode, setCurrentMode] = useState<"question" | "answer">(
-    "question"
-  );
+
+  const [currentMode, setCurrentMode] = useState<Mode>(Mode.Question)
 
   const { increaseFailedCount, resetFailedCount } = useFailedCount();
   const { toNextStatement, fetchCourse, getCurrentStatement, checkCorrect } =
