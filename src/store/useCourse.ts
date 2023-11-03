@@ -7,43 +7,64 @@ interface Statement {
 }
 
 interface CourseData {
-  id: number;
+  id: string;
+  title: string;
   statements: Statement[];
 }
 
 interface State {
+  currentMode: "question" | "answer";
   statementIndex: number;
   currentCourse?: CourseData;
-  currentMode: "question" | "answer";
   toNextStatement: () => void;
   fetchCourse: () => void;
-  getCurrentStatement: () => Statement | undefined;
+  currentStatement: () => Statement | undefined;
   checkCorrect: (input: string) => boolean;
 }
 
-export const useCourse = create<State>((set, get) => ({
+export const useCourse = create<State>((set, get, api) => ({
   statementIndex: 0,
   currentCourse: undefined,
   currentMode: "question",
+
   async fetchCourse() {
     const response = await fetch("/api/main");
     const data = await response.json();
+    console.log("-=-=",data)
     set({ currentCourse: data.data });
   },
+
+
+  
   toNextStatement() {
     set((state) => {
-      return {
-        statementIndex: state.statementIndex + 1,
-      };
+      const nextStatementIndex = state.statementIndex + 1;
+      const cId = state.currentCourse?.id!;
+      const statementIndexListStringify =
+        localStorage.getItem("statementIndexList") || "{}";
+
+      const statementIndexList = JSON.parse(statementIndexListStringify);
+
+      Reflect.set(statementIndexList, cId, nextStatementIndex);
+
+      localStorage.setItem(
+        "statementIndexList",
+        JSON.stringify(statementIndexList),
+      );
+
+      return { statementIndex: nextStatementIndex };
     });
   },
-  getCurrentStatement() {
+  currentStatement() {
     const { currentCourse, statementIndex } = get();
 
     return currentCourse?.statements[statementIndex];
   },
   checkCorrect(input: string) {
-    const currentStatement = get().getCurrentStatement();
-    return input === currentStatement?.english;
+    const currentStatement = get().currentStatement();
+    return (
+      input.toLocaleLowerCase() ===
+      currentStatement?.english.toLocaleLowerCase()
+    );
   },
 }));
