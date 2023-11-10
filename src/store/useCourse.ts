@@ -32,6 +32,7 @@ export const useCourse = create<State>((set, get, api) => ({
     const data = await response.json();
     console.log("-=-=",data)
     set({ currentCourse: data.data });
+    set({ statementIndex: Number(localStorage.getItem("statementIndex"))||0 });
   },
 
 
@@ -52,12 +53,17 @@ export const useCourse = create<State>((set, get, api) => ({
         JSON.stringify(statementIndexList),
       );
 
+      localStorage.setItem(
+        "statementIndex",
+        JSON.stringify(state.statementIndex),
+      );
+
       return { statementIndex: nextStatementIndex };
     });
   },
   currentStatement() {
     const { currentCourse, statementIndex } = get();
-
+    console.log("当前的单词-=-=",currentCourse?.statements[statementIndex])
     return currentCourse?.statements[statementIndex];
   },
   checkCorrect(input: string) {

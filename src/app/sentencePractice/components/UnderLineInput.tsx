@@ -40,24 +40,30 @@ export default function UnderlineInput({
     setFocusing(false);
   };
 
-  const lineInputEls = Array.from({ length: lineNum }, (_, i) => (
-    <div
-      key={i}
-      className={[
-        "code-item",
-        "border-b-2",
-        "py-2",
-        "border-b-solid",
-        "border-b-gray-300 dark:border-b-gray-500",
-        i === activeInputIndex && focusing ? "active" : "",
-        "dark:text-indigo-500  text-[rgba(32,32,32,0.6)]",
-      ]
-        .filter(Boolean)
-        .join(" ")}
-    >
-      {words[i]} {i === activeInputIndex && focusing&&(<div className="h-[100%] w-1 bg-indigo-500 mb-1 ml-1 blinking-cursor"></div>)}
+  const lineInputEls = (
+    <div className="code-wrapper">
+      {
+        Array.from({ length: lineNum }, (_, i) => (
+          <div
+            key={i}
+            className={[
+              "code-item",
+              "border-b-2",
+              "py-2",
+              "border-b-solid",
+              "border-b-gray-300 dark:border-b-gray-500",
+              i === activeInputIndex && focusing ? "active" : "",
+              "dark:text-indigo-500  text-[rgba(32,32,32,0.6)]",
+            ]
+              .filter(Boolean)
+              .join(" ")}
+          >
+            {words[i]} {i === activeInputIndex && focusing &&(<div className="h-[100%] w-1 bg-indigo-500 mb-1 ml-1 blinking-cursor"></div>)}
+          </div>
+        ))
+      }
     </div>
-  ));
+  )
 
   return (
     <div className="code-box">
