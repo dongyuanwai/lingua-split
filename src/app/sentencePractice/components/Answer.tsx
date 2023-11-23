@@ -6,7 +6,8 @@ export default function Answer({ onPlaySound }: { onPlaySound: () => void }) {
     useCourse();
 
   const word = getCurrentStatement()?.english || "";
-  const soundmark = getCurrentStatement()?.soundmark || "";
+  const soundmark = getCurrentStatement()?.soundMark || "";
+  // console.log("soundmark",word,soundmark)
 
   function handleToNextStatement() {
     useCourse.setState({ currentMode: "question" });

@@ -3,7 +3,7 @@ import { create } from "zustand";
 interface Statement {
   chinese: string;
   english: string;
-  soundmark: string;
+  soundMark: string;
 }
 
 interface CourseData {
@@ -33,6 +33,8 @@ export const useCourse = create<State>((set, get, api) => ({
     console.log("-=-=",data)
     set({ currentCourse: data.data });
     set({ statementIndex: Number(localStorage.getItem("statementIndex"))||0 });
+    
+    console.log("-=-=get",get())
   },
 
 
@@ -40,6 +42,13 @@ export const useCourse = create<State>((set, get, api) => ({
   toNextStatement() {
     set((state) => {
       const nextStatementIndex = state.statementIndex + 1;
+      console.log("第几个单词-=-=",state.currentCourse?.statements.length      )
+      if(state.currentCourse &&(nextStatementIndex >= state.currentCourse.statements.length )){
+        // 本节课的单词背完了
+        console.log("最后一个单词---",localStorage.getItem("statementIndex"))
+        alert("最后一个单词")
+        return {}
+      }
       const cId = state.currentCourse?.id!;
       const statementIndexListStringify =
         localStorage.getItem("statementIndexList") || "{}";
@@ -63,8 +72,12 @@ export const useCourse = create<State>((set, get, api) => ({
   },
   currentStatement() {
     const { currentCourse, statementIndex } = get();
-    console.log("当前的单词-=-=",currentCourse?.statements[statementIndex])
-    return currentCourse?.statements[statementIndex];
+    const _currentWord:any = {
+      ...currentCourse?.statements[statementIndex],
+      english: currentCourse?.statements[statementIndex]?.english.trim() ||''
+    }
+    // console.log("当前的单词-=-=",_currentWord)
+    return _currentWord;
   },
   checkCorrect(input: string) {
     const currentStatement = get().currentStatement();
