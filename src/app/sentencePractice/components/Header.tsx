@@ -1,7 +1,10 @@
 // https://nextjs.org/docs/app/building-your-application/optimizing/static-assets
 import Image from 'next/image';
+import Link from 'next/link';
+import { useCourse } from '@/store';
 
 export default function Header() {
+  const {currentCourse} = useCourse()
   // TODO:获取当前Main中请求来的课程名称并显示，后续还可以点击切换
   return (
     <header className="container z-20 mx-auto w-full px-10 py-6">
@@ -23,20 +26,22 @@ export default function Header() {
             <div>
               <a className="block rounded-lg px-3 py-1 text-lg transition-colors duration-300 ease-in-out hover:bg-indigo-400 hover:text-white focus:outline-none dark:text-white dark:text-opacity-60 dark:hover:text-opacity-100"
                 href="">
-                第一课
+                {currentCourse?.name}
               </a>
             </div>
           </div>
           <div className="flex items-center justify-center gap-2">
             <div className="relative">
               <div>
-                <button type="button" className="p-1 flex items-center justify-center rounded  text-lg text-indigo-500 outline-none transition-colors duration-300 ease-in-out hover:bg-indigo-400 hover:text-white"
-                  title="选择课程">
-                  <svg viewBox="0 0 24 24" width="1.2em" height="1.2em" className="icon">
-                    <path fill="currentColor" d="M6.012 18H21V4a2 2 0 0 0-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3h15v-2H6.012C5.55 19.988 5 19.805 5 19s.55-.988 1.012-1zM8 6h9v2H8V6z">
-                    </path>
-                  </svg>
-                </button>
+                <Link href={'/selectCourse'}>
+                  <button type="button" className="p-1 flex items-center justify-center rounded  text-lg text-indigo-500 outline-none transition-colors duration-300 ease-in-out hover:bg-indigo-400 hover:text-white"
+                    title="选择课程">
+                    <svg viewBox="0 0 24 24" width="1.2em" height="1.2em" className="icon">
+                      <path fill="currentColor" d="M6.012 18H21V4a2 2 0 0 0-2-2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3h15v-2H6.012C5.55 19.988 5 19.805 5 19s.55-.988 1.012-1zM8 6h9v2H8V6z">
+                      </path>
+                    </svg>
+                  </button>
+                </Link>
               </div>
               <div className="p-1 opacity-0 bottom-full pb-2 pointer-events-none absolute left-1/2 flex -translate-x-1/2 transform items-center justify-center transition-opacity">
                 <span className="tooltip">

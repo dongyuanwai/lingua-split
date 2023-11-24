@@ -1,0 +1,25 @@
+import '../globals.css'
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+const inter = Inter({ subsets: ['latin'] })
+
+export const metadata: Metadata = {
+  title: 'lingua-split',
+  description: 'Learning English through the method of constructing sentences with conjunctions',
+}
+
+export default function selectLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body className={inter.className}>
+          <div className="flex flex-col">
+            <div className="mb-18">{children} </div>
+          </div>
+      </body>
+    </html>
+  )
+}
