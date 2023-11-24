@@ -5,6 +5,7 @@ import Answer from "./components/Answer";
 import { useEffect } from "react";
 import { useCourse } from "@/store";
 import { useAudio } from "react-use";
+import WordList from "./components/WordList";
 
 export default function Page() {
 
@@ -46,6 +47,7 @@ export default function Page() {
                     {audio}
                 </div>
             </div>
+            <WordList></WordList>
         </>
     );
 }
