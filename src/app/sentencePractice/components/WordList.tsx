@@ -2,7 +2,7 @@ import { useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import { useCourse } from "@/store";
 
-const WordList = ({ currentCourse }: { currentCourse: any }) => {
+const WordList = ({ currentCourse,statementIndex,changeStatement }: { currentCourse: any,statementIndex:number,changeStatement:(index:number)=>void }) => {
   const [open, setOpen] = useState(false);
   const openDrawer = () => {
     setOpen(() => true)
@@ -18,10 +18,22 @@ const WordList = ({ currentCourse }: { currentCourse: any }) => {
           open={open}
           onClose={() => setOpen(false)}
         >
-          <div className="w-[40vw] px-2">
+          <div className="w-[40vw] px-4">
             <div className="w-full h-10 mb-2 flex items-center">{currentCourse.name}</div>
             <div className="">
-              <Card currentCourse={currentCourse}></Card>
+            {currentCourse.statements.map((item: any, index: number) => (
+              <div 
+                key={index}
+                onClick={()=>changeStatement(index)}
+              >
+                <Card 
+                  word={item}
+                  index={index}
+                  statementIndex={statementIndex}
+                ></Card>
+              </div>
+            ))}
+              
             </div>
           </div>
         </Drawer>
@@ -29,19 +41,17 @@ const WordList = ({ currentCourse }: { currentCourse: any }) => {
     </>
   );
 };
-function Card({ currentCourse }: { currentCourse: any }) {
+function Card({ word,statementIndex,index }: { word: any,statementIndex:number,index:number }) {
   return (
     <>
-      <div className="">
-        {currentCourse.statements.map((item: any, index: number) => (
-          <div key={index} className="mb-2 flex cursor-pointer select-text items-center rounded-xl p-4 shadow
-        focus:outline-none bg-white dark:bg-gray-700 dark:bg-opacity-20   ">
+      <div className={`mb-2 flex cursor-pointer select-text items-center rounded-xl p-4 shadow
+        focus:outline-none  dark:bg-gray-700 dark:bg-opacity-20 ${index==statementIndex?'bg-indigo-50':'bg-white'}  `}>
             <div className="flex-1">
               <p className="select-all font-mono text-xl font-normal leading-6 dark:text-gray-50">
-                {item.english}
+                {word.english}
               </p>
               <div className="mt-2 max-w-sm font-sans text-sm text-gray-400">
-                {item.chinese}
+                {word.chinese}
               </div>
             </div>
             <button
@@ -58,8 +68,6 @@ function Card({ currentCourse }: { currentCourse: any }) {
               </svg>
             </button>
           </div>
-        ))}
-      </div>
     </>
   );
 }

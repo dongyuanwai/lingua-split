@@ -25,6 +25,7 @@ interface State {
   currentStatement: () => Statement | undefined;
   checkCorrect: (input: string) => boolean;
   changeCourse: (course:any,index:number) => void;
+  changeStatement: (index: number) => void;
   
 }
 
@@ -101,6 +102,12 @@ export const useCourse = create<State>((set, get, api) => ({
 
       return { statementIndex: nextStatementIndex };
     });
+  },
+  // 切换单词
+  changeStatement(index: number) {
+    set({ statementIndex: index });
+    console.log("1111---")
+    return get().currentStatement()
   },
   currentStatement() {
     const { currentCourse, statementIndex } = get();
