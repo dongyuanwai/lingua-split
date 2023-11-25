@@ -9,7 +9,7 @@ import WordList from "./components/WordList";
 
 export default function Page() {
 
-    const { currentMode, fetchCourse } = useCourse();
+    const { currentMode, fetchCourse, currentCourse } = useCourse();
     const { playSound, audio } = usePlaySound();
 
     function handleToAnswer() {
@@ -47,7 +47,7 @@ export default function Page() {
                     {audio}
                 </div>
             </div>
-            <WordList></WordList>
+            {currentCourse&&(<WordList currentCourse={currentCourse}></WordList>)}
         </>
     );
 }
