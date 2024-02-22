@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useCourse } from '@/store';
 
 export default function Header() {
-  const {currentCourse} = useCourse()
+  const {currentCourse,statementIndex} = useCourse()
   // TODO:获取当前Main中请求来的课程名称并显示，后续还可以点击切换
   return (
     <header className="container z-20 mx-auto w-full px-10 py-6">
@@ -21,6 +21,7 @@ export default function Header() {
             </span>
           </h1>
         </a>
+        <div className='text-xl'>{statementIndex}/{currentCourse?.statements.length}</div>
         <nav className="my-card flex w-auto content-center items-center justify-end space-x-3 rounded-xl bg-gray-50 p-4 transition-colors duration-300 dark:bg-gray-800">
           <div className="relative">
             <div>
