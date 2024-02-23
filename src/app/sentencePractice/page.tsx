@@ -107,7 +107,7 @@ function usePlaySound() {
     const { currentStatement: getCurrentStatement } = useCourse();
     const word = getCurrentStatement()?.english;
     const [audio, state, controls, ref] = useAudio({
-        src: `https://dict.youdao.com/dictvoice?audio=${word}&type=1`,
+        src: `https://dict.youdao.com/dictvoice?audio=${word}&type=1&speed=2`,
         autoPlay: false,
     });
 
