@@ -23,7 +23,7 @@ export default function Page() {
     return (
         <>
             <Header />
-            <div className="container mx-auto flex h-full flex-1 flex-col items-center justify-center pb-10 mt-40">
+            <div className="container mx-auto flex h-full flex-1 flex-col items-center justify-center mt-40">
                 <div className="flex flex-col items-center justify-center pb-1 pt-4">
                     {currentMode === "question" ? (
                         <Question />
